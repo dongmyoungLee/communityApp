@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CrudProject"
+        tools:targetApi="31">
+        <activity
+            android:name=".auth.JoinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".auth.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".auth.IntroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+
+            <!-- 스플래시 이미지 나타내기 위한 위치변경 -->
+            <intent-filter>
+
+                <!-- android.intent.action.MAIN은 이 액티비티가 애플리케이션의 진입점임을 의미합니다. -->
+                <action android:name="android.intent.action.MAIN" />
+
+                <!-- android.intent.category.LAUNCHER는 이 액티비티가 애플리케이션의 런처(시작) 액티비티임을 나타냅니다. -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>
