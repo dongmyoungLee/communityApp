@@ -15,13 +15,13 @@ import com.example.crudproject.R
 import com.example.crudproject.utils.FBAuth
 import com.example.crudproject.utils.FBRef
 
-class ContentRVAdaptor(
+class BookmarkRvAdaptor(
     val context : Context,
     val items : ArrayList<ContentModel>,
     val keyList : ArrayList<String>,
     val bookMarkIdList : MutableList<String>
-) : RecyclerView.Adapter<ContentRVAdaptor.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRVAdaptor.ViewHolder {
+) : RecyclerView.Adapter<BookmarkRvAdaptor.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkRvAdaptor.ViewHolder {
 
         val v = LayoutInflater.from(parent.context).inflate(R.layout.content_rv_item, parent, false)
 
@@ -29,7 +29,7 @@ class ContentRVAdaptor(
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: ContentRVAdaptor.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookmarkRvAdaptor.ViewHolder, position: Int) {
         holder.bindItem(items[position], keyList[position])
     }
 
@@ -56,20 +56,6 @@ class ContentRVAdaptor(
                 bookmarkArea.setImageResource(R.drawable.bookmark_color)
             } else {
                 bookmarkArea.setImageResource(R.drawable.bookmark_white)
-            }
-
-            bookmarkArea.setOnClickListener {
-                Log.d("ContentRVAdaptor", FBAuth.getUid())
-                Toast.makeText(context, key, Toast.LENGTH_LONG).show()
-
-                if(bookMarkIdList.contains(key)) {
-                    // 북마크가 있을 때
-                    FBRef.bookmarkRef.child(FBAuth.getUid()).child(key).removeValue()
-                } else {
-                    // 북마크가 없을 때
-                    FBRef.bookmarkRef.child(FBAuth.getUid()).child(key).setValue(BookmarkModel(true))
-                }
-
             }
 
             contentTitle.text = item.title
