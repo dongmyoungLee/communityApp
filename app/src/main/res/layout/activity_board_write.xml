@@ -72,6 +72,7 @@
                     android:background="@color/black" />
 
                 <ImageView
+                    android:id="@+id/imageArea"
                     android:src="@drawable/plusbtn"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
