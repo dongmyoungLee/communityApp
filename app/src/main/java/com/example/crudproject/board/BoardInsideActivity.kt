@@ -12,6 +12,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.crudproject.R
+import com.example.crudproject.comment.CommentLVAdaptor
+import com.example.crudproject.comment.CommentModel
 import com.example.crudproject.databinding.ActivityBoardInsideBinding
 import com.example.crudproject.utils.FBAuth
 import com.example.crudproject.utils.FBRef
@@ -20,6 +22,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.storage
+import org.w3c.dom.Comment
 
 class BoardInsideActivity : AppCompatActivity() {
 
@@ -27,8 +30,11 @@ class BoardInsideActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBoardInsideBinding
 
-    private lateinit var key:String
+    private lateinit var key : String
 
+    private val commentDataList = mutableListOf<CommentModel>()
+
+    private lateinit var commentAdaptor : CommentLVAdaptor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +50,59 @@ class BoardInsideActivity : AppCompatActivity() {
         key = intent.getStringExtra("key").toString()
         getBoardData(key)
         getImageData(key)
+
+
+        binding.commentBtn.setOnClickListener {
+            insertComment(key)
+        }
+
+        getCommentData(key)
+
+        commentAdaptor = CommentLVAdaptor(commentDataList)
+        binding.commentLV.adapter = commentAdaptor
+
+
+    }
+
+    private fun getCommentData(key : String) {
+        val postListener = object : ValueEventListener {
+
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                commentDataList.clear()
+
+                for (dataModel in dataSnapshot.children) {
+                    val item = dataModel.getValue(CommentModel::class.java)
+
+                    commentDataList.add(item!!)
+                }
+
+                commentAdaptor.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+
+        FBRef.commentRef.child(key).addValueEventListener(postListener)
+    }
+
+    private fun insertComment(key : String) {
+        FBRef.commentRef
+            .child(key)
+            .push()
+            .setValue(
+                CommentModel(
+                    binding.commentArea.text.toString(),
+                    FBAuth.getTime()
+                )
+            )
+
+        Toast.makeText(this, "댓글 입력완료", Toast.LENGTH_LONG).show()
+        binding.commentArea.setText("")
     }
 
     private fun showDialog() {
@@ -86,7 +145,7 @@ class BoardInsideActivity : AppCompatActivity() {
                     .load(task.result)
                     .into(imageViewFromFB)
             } else {
-
+                binding.getImageArea.isVisible = false
             }
         }
     }
