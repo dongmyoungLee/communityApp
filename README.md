@@ -1,4 +1,4 @@
-# My Kotlin App
+# My Community App
 
 이 저장소는 코틀린(Kotlin)으로 개발한 모바일 애플리케이션 프로젝트입니다. 이 애플리케이션은 다양한 안드로이드 UI 컴포넌트와 Firebase를 사용한 백엔드 기능을 포함하고 있습니다.
 
