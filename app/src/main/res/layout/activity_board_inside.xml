@@ -33,6 +33,7 @@
                     android:gravity="center"/>
 
                 <ImageView
+                    android:visibility="invisible"
                     android:id="@+id/boardSettingIcon"
                     android:layout_width="20dp"
                     android:layout_height="40dp"

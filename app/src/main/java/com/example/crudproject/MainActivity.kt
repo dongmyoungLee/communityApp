@@ -3,12 +3,14 @@ package com.example.crudproject
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.crudproject.auth.IntroActivity
 import com.example.crudproject.auth.LoginActivity
+import com.example.crudproject.setting.SettingActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -34,6 +36,11 @@ class MainActivity : AppCompatActivity() {
 //            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
 //            startActivity(intent)
 //        }
+
+        findViewById<ImageView>(R.id.settingBtn).setOnClickListener {
+            val intent = Intent(this, SettingActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }

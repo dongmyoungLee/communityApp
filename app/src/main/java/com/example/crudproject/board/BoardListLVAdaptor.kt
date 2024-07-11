@@ -1,12 +1,14 @@
 package com.example.crudproject.board
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.crudproject.R
-import org.w3c.dom.Text
+import com.example.crudproject.utils.FBAuth
 
 class BoardListLVAdaptor(
     val boardList : MutableList<BoardModel>
@@ -27,8 +29,13 @@ class BoardListLVAdaptor(
 
         var view = convertView
 
-        if(convertView == null) {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.board_list_item, parent, false)
+
+        view = LayoutInflater.from(parent?.context).inflate(R.layout.board_list_item, parent, false)
+
+        val itemLinearLayoutView = view?.findViewById<LinearLayout>(R.id.itemView)
+
+        if (boardList[position].uid.equals(FBAuth.getUid())) {
+            itemLinearLayoutView?.setBackgroundColor(Color.parseColor("#ffa500"))
         }
 
         val title = view?.findViewById<TextView>(R.id.titleArea)
